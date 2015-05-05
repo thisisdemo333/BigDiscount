@@ -1,0 +1,102 @@
+package com.biggdiscountsmedia.biggdiscounts.webservices;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URLEncodedUtils;
+
+import com.biggdiscountsmedia.biggdiscounts.constants.URLConstants;
+import com.biggdiscountsmedia.biggdiscounts.dto.Categories;
+import com.biggdiscountsmedia.biggdiscounts.dto.CategoriesResponse;
+import com.biggdiscountsmedia.biggdiscounts.dto.Cities;
+import com.biggdiscountsmedia.biggdiscounts.dto.CitiesResponse;
+import com.biggdiscountsmedia.biggdiscounts.dto.Images;
+import com.biggdiscountsmedia.biggdiscounts.dto.ProductDetail;
+import com.biggdiscountsmedia.biggdiscounts.dto.ProductsResponse;
+import com.biggdiscountsmedia.biggdiscounts.dto.SliderImagesResponse;
+import com.biggdiscountsmedia.biggdiscounts.httputils.HttpUtil;
+import com.google.gson.Gson;
+
+public class WebService implements WebServiceInterface {
+	private HttpUtil httpUtil;
+	private Gson gson;
+
+	public WebService() {
+		// TODO Auto-generated constructor stub
+		httpUtil = new HttpUtil();
+		gson = new Gson();
+	}
+
+	@Override
+	public ArrayList<Cities> getCityList() {
+		// TODO Auto-generated method stub
+		String json = httpUtil.doGet(URLConstants.CITY_LIST_URL);
+		CitiesResponse citiesResponse = gson.fromJson(json,
+				CitiesResponse.class);
+		if (citiesResponse != null) {
+			return (ArrayList<Cities>) citiesResponse.getCitiesList();
+		}
+		return null;
+	}
+
+	@Override
+	public ArrayList<Categories> getCategoriesList() {
+		// TODO Auto-generated method stub
+		String json = httpUtil.doGet(URLConstants.CATEGORIES_URL);
+		CategoriesResponse categoriesResponse = gson.fromJson(json,
+				CategoriesResponse.class);
+		if (categoriesResponse != null) {
+			return (ArrayList<Categories>) categoriesResponse.getCategories();
+		}
+		return null;
+	}
+
+	@Override
+	public ProductsResponse getProduct(List<NameValuePair> params) {
+		// TODO Auto-generated method stub
+		String paramString = URLEncodedUtils.format(params, "utf-8");
+		paramString = URLConstants.ADVERTIES_URL + "?" + paramString;
+		String json = httpUtil.doGet(paramString);
+		ProductsResponse productsResponse = gson.fromJson(json,
+				ProductsResponse.class);
+		if (productsResponse != null) {
+			return productsResponse;
+		}
+		return null;
+	}
+
+	@Override
+	public ArrayList<Images> getSliderImages(List<NameValuePair> params) {
+		// TODO Auto-generated method stub
+		String paramString = URLEncodedUtils.format(params, "utf-8");
+		paramString = URLConstants.SLIDER + "?" + paramString;
+		String json = httpUtil.doGet(paramString);
+		SliderImagesResponse sliderImagesResponse = gson.fromJson(json,
+				SliderImagesResponse.class);
+		if (sliderImagesResponse != null) {
+			return (ArrayList<Images>) sliderImagesResponse.getImagesList();
+		}
+		return null;
+	}
+
+	public ProductDetail getProductDetail(String productId) {
+		String URL = URLConstants.ADVERTIES_Detail_URL+productId+ ".json";
+		
+		String result = httpUtil.doGet(URL);
+		ProductDetail response = null;
+		// ArrayList<ProductReview> returnList = null;
+		ProductReview productReview = null;
+		try {
+			Type classType = new TypeToken<Response<ProductReview>>() {
+			}.getType();
+			response = gson.fromJson(result, classType);
+			productReview = response.getData();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return productReview;
+		return null;
+	}
+
+}

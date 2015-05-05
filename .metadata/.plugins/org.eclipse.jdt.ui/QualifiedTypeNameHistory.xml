@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.google.android.gms.maps.MapFragment"/>
+<fullyQualifiedTypeName name="com.example.mapdemo.R.id"/>
+<fullyQualifiedTypeName name="android.widget.Toast"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.lang.reflect.Type"/>
+<fullyQualifiedTypeName name="com.biggdiscountsmedia.biggdiscounts.dto.ProductDetail"/>
+<fullyQualifiedTypeName name="com.biggdiscountsmedia.biggdiscounts.dto.Rating"/>
+<fullyQualifiedTypeName name="com.biggdiscountsmedia.biggdiscounts.dto.AdvertisementImage"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.biggdiscountsmedia.biggdiscounts.dto.Address"/>
+<fullyQualifiedTypeName name="com.biggdiscountsmedia.biggdiscounts.dto.Advertiser"/>
+<fullyQualifiedTypeName name="java.util.concurrent.ThreadPoolExecutor"/>
+<fullyQualifiedTypeName name="android.os.AsyncTask"/>
+<fullyQualifiedTypeName name="com.google.android.gms.maps.model.LatLng"/>
+<fullyQualifiedTypeName name="com.google.android.gms.maps.model.MarkerOptions"/>
+<fullyQualifiedTypeName name="com.example.mapdemo.MainActivity"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="android.content.Intent"/>
+<fullyQualifiedTypeName name="com.biggdiscountsmedia.biggdiscounts.activities.AdvertiesDetailActivity"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="com.biggdiscountsmedia.biggdiscounts.R.string"/>
+<fullyQualifiedTypeName name="com.biggdiscountsmedia.biggdiscounts.utils.Utils"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+</qualifiedTypeNameHistroy>

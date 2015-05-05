@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+org.eclipse.jdt.core.codeComplete.visibilityCheck=enabled
+org.eclipse.jdt.core.userLibrary.extraLib=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<userlibrary systemlibrary\="false" version\="2">\r\n\t<archive path\="D\:/ADK/androiddevelopmentkit/sdk/extras/google/google_play_services/libproject/google-play-services_lib/libs/google-play-services.jar"/>\r\n</userlibrary>\r\n

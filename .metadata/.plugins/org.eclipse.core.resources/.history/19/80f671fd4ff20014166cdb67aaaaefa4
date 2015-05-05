@@ -1,0 +1,10 @@
+package com.biggdiscountsmedia.biggdiscounts.dto;
+
+import com.google.gson.annotations.SerializedName;
+
+public class Address {
+	@SerializedName("street_address")
+	private String street_address;
+	@SerializedName("city_name")
+	private String city_name;
+}

@@ -1,0 +1,38 @@
+package com.biggdiscountsmedia.biggdiscounts.dto;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.gson.annotations.SerializedName;
+
+public class Regular {
+	@SerializedName("id")
+	private int id;
+	@SerializedName("description")
+	private String description;
+	@SerializedName("mrp")
+	private int mrp;
+	@SerializedName("offer")
+	private String offer;
+	@SerializedName("selling_price")
+	private int selling_price;
+	@SerializedName("product_name")
+	private String product_name;
+	@SerializedName("total_views")
+	private int total_views;
+	@SerializedName("advertisement_image")
+	private AdvertisementImage advertisement_image;
+	@SerializedName("rating")
+	private Rating rating;
+	@SerializedName("categories")
+	private List<Categories> categories = new ArrayList<Categories>();
+	@SerializedName("cities")
+	private List<Cities> citiesList = new ArrayList<Cities>();
+	@SerializedName("addresses")
+	private List<Address> addresses = new ArrayList<Address>();
+	@SerializedName("advertiser")
+	private Advertiser advertiser;
+
+	
+
+}

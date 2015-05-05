@@ -1,0 +1,25 @@
+package com.biggdiscountsmedia.biggdiscounts.dto;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProductDetail {
+	private int id;
+	private int selling_price;
+	private int mrp;
+	private int total_views;
+
+	private String description;
+	private String offer;
+	private String product_name;
+
+	private Advertiser advertiser;
+	private Rating rating;
+
+	private List<AdvertisementImage> advertisement_images = new ArrayList<AdvertisementImage>();
+	private List<Categories> categories = new ArrayList<Categories>();
+	private List<Address> addresses = new ArrayList<Address>();
+	private List<Cities> cities = new ArrayList<Cities>();
+	
+	
+}

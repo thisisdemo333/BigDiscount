@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Text Size -->
+    <dimen name="very_small_text_size">8sp</dimen>
+    <dimen name="sub_small_text_size">9sp</dimen>
+    <dimen name="small_text_size">10sp</dimen>
+    <dimen name="medium_text_size">15sp</dimen>
+    <dimen name="large_text_size">25sp</dimen>
+    <dimen name="very_large_text_size">35sp</dimen>
+
+    <!-- padding -->
+    <dimen name="padding_1dp">1dp</dimen>
+    <dimen name="padding_2dp">2dp</dimen>
+    <dimen name="padding_3dp">3dp</dimen>
+    <dimen name="padding_4dp">4dp</dimen>
+    <dimen name="padding_5dp">5dp</dimen>
+    <dimen name="padding_6dp">6dp</dimen>
+    <dimen name="padding_7dp">7dp</dimen>
+    <dimen name="padding_8dp">8dp</dimen>
+    <dimen name="padding_9dp">9dp</dimen>
+    <dimen name="padding_10dp">10dp</dimen>
+    <dimen name="padding_15dp">15dp</dimen>
+    <dimen name="padding_20dp">20dp</dimen>
+    <dimen name="padding_25dp">25dp</dimen>
+    <dimen name="padding_30dp">30dp</dimen>
+    <dimen name="padding_40dp">40dp</dimen>
+
+    <!-- Margin -->
+    <dimen name="margin_1dp">1dp</dimen>
+    <dimen name="margin_2dp">2dp</dimen>
+    <dimen name="margin_3dp">3dp</dimen>
+    <dimen name="margin_4dp">4dp</dimen>
+    <dimen name="margin_5dp">5dp</dimen>
+    <dimen name="margin_6dp">6dp</dimen>
+    <dimen name="margin_7dp">7dp</dimen>
+    <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="margin_9dp">9dp</dimen>
+    <dimen name="margin_10dp">10dp</dimen>
+    <dimen name="margin_15dp">15dp</dimen>
+    <dimen name="margin_20dp">20dp</dimen>
+    <dimen name="margin_25dp">25dp</dimen>
+    <dimen name="margin_30dp">30dp</dimen>
+
+    <!-- Imageview Category Dimen -->
+    <dimen name="imv_category_dimen">45dp</dimen>
+
+    <!-- Category Fragment dimen -->
+    <dimen name="dimen_hotdeals_listview">165dp</dimen>
+    <dimen name="dimen_view_pager">165dp</dimen>
+    <dimen name="dimen_hot_deals_image">165dp</dimen>
+    <dimen name="dimen_product_image">165dp</dimen>
+
+    <!-- Advertise Screen Dimen -->
+    <dimen name="dimen_advetise_viewpager">200dp</dimen>
+    <dimen name="dimen_advertise_horizontal_listview">100dp</dimen>
+    <dimen name="dimen_advertise_call_image">40dp</dimen>
+    <dimen name="dimen_advertise_sms_image">40dp</dimen>
+    <dimen name="dimen_advertise_pager_addres">100dp</dimen>
+
+</resources>

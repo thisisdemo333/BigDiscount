@@ -1,0 +1,34 @@
+<resources>
+
+    <!-- Names -->
+    <string name="app_name">BigDiscounts</string>
+
+    <!-- Labels -->
+    <string name="choose_city">Choose City</string>
+    <string name="ok">OK</string>
+    <string name="select_city">Select City</string>
+    <string name="next">Next</string>
+    <string name="categories">Categories</string>
+    <string name="please_wait">Please Wait...</string>
+    <string name="all_categories">All Categories</string>
+    <string name="hot_deals">Hot Deals</string>
+    <string name="popular_deals">Popular Deals</string>
+    <string name="rate">Rate it</string>
+    
+    <!-- Messages -->
+    <string name="no_internert">Sorry No Internet!</string>
+    <string name="could_not_connect_to_server">Oops Couldnot Connect To Server!</string>
+    <string name="no_data">Sorry No Data!</string>
+    <string name="succesfully_rated">Succesfully Rated</string>
+    <string name="try_again">Try Again</string>
+    <string name="address_plot_fail">Unable to Plot Address</string>
+
+    <!-- Keys -->
+    <string name="key_ad_id">id</string>
+    <string name="key_city_name">city</string>
+    <string name="key_city_id">city_id</string>
+    <string name="key_category_id">category_id</string>
+    <string name="key_category_name">category_name</string>
+    <string name="google_maps_key">AIzaSyCNQVl9YItpXPx-0yTiBHbP4H7u94ShpuM</string>
+
+</resources>

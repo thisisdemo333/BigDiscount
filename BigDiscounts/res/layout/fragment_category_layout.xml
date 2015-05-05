@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_light"
+    android:fillViewport="true"
+    android:padding="@dimen/padding_5dp" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <RelativeLayout
+            android:id="@+id/rl_progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" >
+
+            <ProgressBar
+                android:id="@+id/progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" >
+            </ProgressBar>
+
+            <TextView
+                android:id="@+id/tv_network_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/progressbar"
+                android:layout_centerInParent="true"
+                android:text="@string/please_wait"
+                android:textSize="@dimen/medium_text_size" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_category"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" >
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_view_pager"
+                android:background="@color/white" >
+            </android.support.v4.view.ViewPager>
+
+            <RelativeLayout
+                android:id="@+id/rl_hotdeals"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view_pager"
+                android:layout_marginBottom="@dimen/margin_5dp"
+                android:layout_marginTop="@dimen/margin_5dp"
+                android:background="@color/RoyalBlue" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:padding="@dimen/padding_5dp"
+                    android:text="@string/hot_deals"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/small_text_size"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <com.biggdiscountsmedia.biggdiscounts.views.HorizontalListView
+                android:id="@+id/lv_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_hotdeals_listview"
+                android:layout_below="@+id/rl_hotdeals" >
+            </com.biggdiscountsmedia.biggdiscounts.views.HorizontalListView>
+
+            <RelativeLayout
+                android:id="@+id/rl_popular_deals"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lv_horizontal"
+                android:layout_marginBottom="@dimen/margin_5dp"
+                android:layout_marginTop="@dimen/margin_5dp"
+                android:background="@color/RoyalBlue" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:padding="@dimen/padding_5dp"
+                    android:text="@string/popular_deals"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/small_text_size"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <com.biggdiscountsmedia.biggdiscounts.views.BiggDiscountsGridView
+                android:id="@+id/gridview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_popular_deals"
+                android:horizontalSpacing="@dimen/margin_5dp"
+                android:numColumns="2"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="@dimen/margin_5dp" >
+            </com.biggdiscountsmedia.biggdiscounts.views.BiggDiscountsGridView>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</ScrollView>

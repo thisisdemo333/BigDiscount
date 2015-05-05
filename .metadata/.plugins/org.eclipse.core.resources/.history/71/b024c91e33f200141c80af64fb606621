@@ -1,0 +1,72 @@
+package com.biggdiscountsmedia.biggdiscounts.viewholder;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.text.TextUtils;
+import android.view.View;
+import android.view.View.OnClickListener;
+
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
+import com.biggdiscountsmedia.biggdiscounts.BaseViewHolder;
+import com.biggdiscountsmedia.biggdiscounts.BiggDiscountsApplication;
+import com.biggdiscountsmedia.biggdiscounts.R;
+import com.biggdiscountsmedia.biggdiscounts.activities.AdvertiesDetailActivity;
+import com.biggdiscountsmedia.biggdiscounts.constants.URLConstants;
+import com.biggdiscountsmedia.biggdiscounts.dto.Regular;
+
+public class ViewHolderGridViewPopularDeals extends BaseViewHolder {
+	private Regular regular;
+	private NetworkImageView networkImageViewProduct;
+	private ImageLoader imageLoader;
+	private Activity mActivity;
+
+	public ViewHolderGridViewPopularDeals(Activity mActivity) {
+		super(mActivity);
+		// TODO Auto-generated constructor stub
+		this.mActivity = mActivity;
+		imageLoader = BiggDiscountsApplication.getInstance().getImageLoader();
+	}
+
+	@Override
+	public void setData(Object data) {
+		// TODO Auto-generated method stub
+		regular = (Regular) data;
+
+	}
+
+	@Override
+	public void applyData() {
+		// TODO Auto-generated method stub
+		String imageUrl = regular.getAdvertisement_image().getImage();
+		if (!TextUtils.isEmpty(imageUrl)) {
+			imageUrl = URLConstants.IMAGE_BASE_URL + imageUrl;
+			networkImageViewProduct.setImageUrl(imageUrl, imageLoader);
+		}
+
+		networkImageViewProduct.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				int ad_id = regular.getAdvertisement_image()
+						.getAdvertisement_id();
+
+				Intent intent = new Intent(AdvertiesDetailActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				intent.putExtra("id", ad_id+"");
+				mActivity.getApplicationContext().startActivity(intent);
+			}
+		});
+	}
+
+	@Override
+	public View getConvertView() {
+		// TODO Auto-generated method stub
+		View view = mInflater
+				.inflate(R.layout.view_gridview_popular_deal, null);
+		networkImageViewProduct = (NetworkImageView) view
+				.findViewById(R.id.imv_product);
+
+		return view;
+	}
+}

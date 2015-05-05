@@ -1,0 +1,5 @@
+package com.biggdiscountsmedia.biggdiscounts.dto;
+
+public class ProductDetail {
+
+}

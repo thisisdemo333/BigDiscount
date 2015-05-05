@@ -1,0 +1,89 @@
+package com.biggdiscountsmedia.biggdiscounts.adapters;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
+import com.biggdiscountsmedia.biggdiscounts.BiggDiscountsApplication;
+import com.biggdiscountsmedia.biggdiscounts.R;
+import com.biggdiscountsmedia.biggdiscounts.constants.URLConstants;
+
+/**
+ * Created by de6 on 17/4/15.
+ */
+public class DetailImageListAdapter extends BaseAdapter {
+
+	// Declare Variables
+	Context context;
+	LayoutInflater inflater;
+	ArrayList<HashMap<String, String>> data;
+
+	HashMap<String, String> resultp = new HashMap<String, String>();
+	ImageLoader imageLoader;
+
+	public DetailImageListAdapter(Context context,
+			ArrayList<HashMap<String, String>> arraylist) {
+		this.context = context;
+		data = arraylist;
+		imageLoader = BiggDiscountsApplication.getInstance().getImageLoader();
+	}
+
+	@Override
+	public int getCount() {
+		return data.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		return null;
+	}
+
+	@Override
+	public long getItemId(int position) {
+		return 0;
+	}
+
+	public View getView(final int position, View convertView, ViewGroup parent) {
+		// Declare Variables
+
+		NetworkImageView productImage;
+
+		inflater = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+		View itemView = inflater.inflate(R.layout.detailview_image_item,
+				parent, false);
+		// Get the position
+		resultp = data.get(position);
+
+		productImage = (NetworkImageView) itemView.findViewById(R.id.iv_image);
+		productImage
+				.setImageUrl(
+						URLConstants.IMAGE_BASE_URL + resultp.get("image"),
+						imageLoader);
+
+		/*
+		 * itemView.setOnClickListener(new OnClickListener() {
+		 * 
+		 * @Override public void onClick(View arg0) {
+		 * 
+		 * resultp = data.get(position); Intent intent = new Intent(context,
+		 * MainActivity.class);
+		 * 
+		 * intent.putExtra("rank", resultp.get(SelectCity.ID));
+		 * 
+		 * context.startActivity(intent);
+		 * 
+		 * } });
+		 */
+		return itemView;
+	}
+}
