@@ -4,13 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 
 import com.biggdiscountsmedia.biggdiscounts.BaseActivity;
 import com.biggdiscountsmedia.biggdiscounts.R;
+import com.biggdiscountsmedia.biggdiscounts.prefernces.PrefHelper;
 
 public class SplashActivity extends BaseActivity {
 	private Context mContext;
 	private Handler mHandler;
+	private PrefHelper prefHelper;
 	private int splashTime = 3000;
 
 	@Override
@@ -48,6 +51,7 @@ public class SplashActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		mContext = this;
 		mHandler = new Handler();
+		prefHelper = new PrefHelper(mContext);
 
 	}
 
@@ -63,10 +67,17 @@ public class SplashActivity extends BaseActivity {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				Intent intentScreenActivity = new Intent(mContext,
-						SelectCityActivity.class);
-				startActivity(intentScreenActivity);
-				finish();
+				if (TextUtils.isEmpty(prefHelper.getCityFromPrefernce())) {
+					Intent intentScreenActivity = new Intent(mContext,
+							SelectCityActivity.class);
+					startActivity(intentScreenActivity);
+					finish();
+				} else {
+					Intent intentHomeActivityy = new Intent(mContext,
+							HomeActivity.class);
+					startActivity(intentHomeActivityy);
+					finish();
+				}
 			}
 		}, splashTime);
 

@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -28,6 +30,7 @@ import com.biggdiscountsmedia.biggdiscounts.R;
 import com.biggdiscountsmedia.biggdiscounts.R.layout;
 import com.biggdiscountsmedia.biggdiscounts.datacache.DataCache;
 import com.biggdiscountsmedia.biggdiscounts.dto.Cities;
+import com.biggdiscountsmedia.biggdiscounts.prefernces.PrefHelper;
 import com.biggdiscountsmedia.biggdiscounts.utils.Utils;
 
 public class SelectCityActivity extends BaseActivity implements
@@ -36,6 +39,7 @@ public class SelectCityActivity extends BaseActivity implements
 	private Context mContext;
 	private BiggDiscountsApplication mApp;
 	private DataCache dataCache;
+	private PrefHelper prefHelper;
 	private ProgressBar progressBar;
 	private ArrayList<Cities> arrayListCities;
 	private ArrayList<String> arrayListCitiesName;
@@ -86,6 +90,7 @@ public class SelectCityActivity extends BaseActivity implements
 		mContext = this;
 		mApp = (BiggDiscountsApplication) getApplicationContext();
 		dataCache = DataCache.getInstance();
+		prefHelper = new PrefHelper(mContext);
 		arrayListCities = new ArrayList<Cities>();
 		arrayListCitiesName = new ArrayList<String>();
 		adapterSpinner = new ArrayAdapter<String>(mContext,
@@ -164,6 +169,9 @@ public class SelectCityActivity extends BaseActivity implements
 		int pos = spinner.getSelectedItemPosition();
 		int cityId = arrayListCities.get(pos).getId();
 		String cityName = arrayListCities.get(pos).getCity_name();
+		if (!TextUtils.isEmpty(cityName)) {
+			prefHelper.saveCityInPrefernce(cityName);
+		}
 		Intent intentHomeActivity = new Intent(mContext, HomeActivity.class);
 		intentHomeActivity.putExtra(
 				getResources().getString(R.string.key_city_id), cityId);

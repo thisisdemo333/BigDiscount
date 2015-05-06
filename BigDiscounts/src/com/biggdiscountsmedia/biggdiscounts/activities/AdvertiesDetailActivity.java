@@ -68,10 +68,8 @@ public class AdvertiesDetailActivity extends Activity implements
 	private ArrayList<HashMap<String, String>> arrylist_image = new ArrayList<HashMap<String, String>>();
 	private ArrayList<HashMap<String, String>> arrylist_address = new ArrayList<HashMap<String, String>>();
 	private ImageLoader imageLoader;
-
 	private AdapterProductDetailImageList imageListAdapter;
 	private AdapterAddress addressAdapter;
-
 	private ProgressDialog pDialog;
 	private HorizontalListView hvImagesList;
 	private TextView tvProductSellingPrize;
@@ -311,9 +309,6 @@ public class AdvertiesDetailActivity extends Activity implements
 					googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
 							pos, 15));
 				}
-			} else {
-				Utils.ShowToast(mActivity,
-						getResources().getString(R.string.address_plot_fail));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

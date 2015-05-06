@@ -15,4 +15,13 @@ public class PrefHelper {
 				Application.MODE_PRIVATE);
 		mEditor = mSharedPreferences.edit();
 	}
+
+	public void saveCityInPrefernce(String city) {
+		mEditor.putString(PrefNames.KEY_CITY, city);
+		mEditor.commit();
+	}
+
+	public String getCityFromPrefernce() {
+		return mSharedPreferences.getString(PrefNames.KEY_CITY, null);
+	}
 }

@@ -18,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -34,6 +35,7 @@ import com.biggdiscountsmedia.biggdiscounts.datacache.DataCache;
 import com.biggdiscountsmedia.biggdiscounts.dto.Categories;
 import com.biggdiscountsmedia.biggdiscounts.dto.Cities;
 import com.biggdiscountsmedia.biggdiscounts.fragments.CategoryFragment;
+import com.biggdiscountsmedia.biggdiscounts.prefernces.PrefHelper;
 import com.biggdiscountsmedia.biggdiscounts.utils.Utils;
 
 public class HomeActivity extends BaseActivity {
@@ -42,6 +44,7 @@ public class HomeActivity extends BaseActivity {
 	private BiggDiscountsApplication mApp;
 	private DataCache dataCache;
 	private Bundle savedInstanceState;
+	private PrefHelper prefHelper;
 	private ArrayList<Categories> arrayListCategories;
 	private ArrayList<Cities> arrayListCities;
 	private AdapterCategories adapterCategories;
@@ -103,13 +106,11 @@ public class HomeActivity extends BaseActivity {
 		mActivity = this;
 		mApp = (BiggDiscountsApplication) getApplicationContext();
 		dataCache = DataCache.getInstance();
+		prefHelper = new PrefHelper(mContext);
 		arrayListCategories = new ArrayList<Categories>();
-		arrayListCities = dataCache.getArrayListCities();
+		arrayListCities = new ArrayList<Cities>();
 
-		cityId = getIntent().getIntExtra(
-				getResources().getString(R.string.key_city_id), 0);
-		cityName = getIntent().getStringExtra(
-				getResources().getString(R.string.key_city_name));
+		cityName = prefHelper.getCityFromPrefernce();
 
 		// enabling action bar app icon and behaving it as toggle button
 		getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -122,10 +123,9 @@ public class HomeActivity extends BaseActivity {
 		adapterCategories.setArrayListCategories(arrayListCategories);
 		lvDrawerLeftSide.setAdapter(adapterCategories);
 
-		// initializing Cities Adapter
+		// // initializing Cities Adapter
 		adapterCities = new AdapterCities(mActivity);
 		adapterCities.setArrayListCities(arrayListCities);
-
 		lvDraweRightSide.setAdapter(adapterCities);
 
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
@@ -223,6 +223,9 @@ public class HomeActivity extends BaseActivity {
 		if (Utils.hasDataConnection(mContext)) {
 			GetCategoriesAsyncTask getCategoriesAsyncTask = new GetCategoriesAsyncTask();
 			getCategoriesAsyncTask.execute();
+
+			GetCitiesAsyncTask getCitiesAsyncTask = new GetCitiesAsyncTask();
+			getCitiesAsyncTask.execute();
 		}
 
 	}
@@ -251,7 +254,10 @@ public class HomeActivity extends BaseActivity {
 			// display view for selected nav drawer item
 
 			mDrawerLayout.closeDrawer(Gravity.RIGHT);
-			cityName = arrayListCities.get(position).getCity_name();
+			prefHelper.saveCityInPrefernce(arrayListCities.get(position)
+					.getCity_name());
+			cityName = prefHelper.getCityFromPrefernce();
+
 			displayCategoryFragment(position, false);
 		}
 	}
@@ -363,12 +369,52 @@ public class HomeActivity extends BaseActivity {
 				arrayListCategories.add(categories);
 				arrayListCategories.addAll(result);
 				adapterCategories.notifyDataSetChanged();
-				adapterCities.notifyDataSetChanged();
+
 			} else {
 
 			}
 		}
 
+	}
+
+	private class GetCitiesAsyncTask extends
+			AsyncTask<Void, Void, ArrayList<Cities>> {
+
+		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+
+		}
+
+		@Override
+		protected ArrayList<Cities> doInBackground(Void... params) {
+			// TODO Auto-generated method stub
+
+			try {
+				ArrayList<Cities> arrayListCities = mApp.getWebService()
+						.getCityList();
+				return arrayListCities;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
+
+		}
+
+		@Override
+		protected void onPostExecute(ArrayList<Cities> result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			if (result != null) {
+				arrayListCities.addAll(result);
+				// initializing Cities Adapter
+
+				adapterCities.notifyDataSetChanged();
+			}
+
+		}
 	}
 
 }
