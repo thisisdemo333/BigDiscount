@@ -14,10 +14,5 @@
 			<type>2</type>
 			<location>D:/ADK/androiddevelopmentkit/sdk/sources/android-17</location>
 		</link>
-		<link>
-			<name>.link1</name>
-			<type>2</type>
-			<location>D:/google-play-services_lib/src</location>
-		</link>
 	</linkedResources>
 </projectDescription>
