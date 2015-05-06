@@ -14,14 +14,12 @@
     <string name="hot_deals">Hot Deals</string>
     <string name="popular_deals">Popular Deals</string>
     <string name="rate">Rate it</string>
-    
     <!-- Messages -->
     <string name="no_internert">Sorry No Internet!</string>
     <string name="could_not_connect_to_server">Oops Couldnot Connect To Server!</string>
     <string name="no_data">Sorry No Data!</string>
     <string name="succesfully_rated">Succesfully Rated</string>
     <string name="try_again">Try Again</string>
-    <string name="address_plot_fail">Unable to plot address on map</string>
 
     <!-- Keys -->
     <string name="key_ad_id">id</string>

@@ -5,12 +5,20 @@
     android:background="@color/RoyalBlue"
     android:padding="@dimen/padding_5dp" >
 
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/imv_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_location" />
+
     <TextView
         android:id="@+id/tv_city_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:text="category"
+        android:layout_marginLeft="@dimen/margin_10dp"
+        android:layout_toRightOf="@+id/imv_location"
+        android:text="city"
         android:textColor="@color/White"
         android:textSize="@dimen/medium_text_size" />
 
