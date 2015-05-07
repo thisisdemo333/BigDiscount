@@ -26,4 +26,6 @@ public interface WebServiceInterface {
 	public ProductDetail getProductDetail(String productId);
 	
 	public RatingResponse postRating(RatingRequest ratingRequest);
+	
+	public boolean isAlreadyRegistered(List<NameValuePair> params);
 }

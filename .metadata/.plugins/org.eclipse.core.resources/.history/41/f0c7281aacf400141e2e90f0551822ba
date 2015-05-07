@@ -1,0 +1,189 @@
+package com.biggdiscountsmedia.biggdiscounts.dialoguefragment;
+
+import java.security.acl.LastOwnerException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.biggdiscountsmedia.biggdiscounts.BaseDialogueFragment;
+import com.biggdiscountsmedia.biggdiscounts.BiggDiscountsApplication;
+import com.biggdiscountsmedia.biggdiscounts.R;
+import com.biggdiscountsmedia.biggdiscounts.httputils.HttpUtil;
+import com.biggdiscountsmedia.biggdiscounts.prefernces.PrefHelper;
+import com.biggdiscountsmedia.biggdiscounts.utils.Utils;
+import com.google.android.gms.internal.fi;
+
+public class DialogueRegister extends BaseDialogueFragment implements
+		OnClickListener {
+	private Activity mActivity;
+	private BiggDiscountsApplication mApp;
+	private PrefHelper prefHelper;
+	private EditText editTextFirstName;
+	private EditText editTextLastName;
+	private EditText editTextMobileNumber;
+	private Button buttonSubmit;
+	private Button buttonCancel;
+	private String firstName;
+	private String lastName;
+	private String number;
+	private String city;
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View view = inflater.inflate(R.layout.dialogue_registration, null);
+		init(view);
+		return view;
+
+	}
+
+	@Override
+	public void init(View view) {
+		// TODO Auto-generated method stub
+		initViews(view);
+		initListeners();
+		initMembers();
+		initData();
+	}
+
+	@Override
+	public void initViews(View view) {
+		// TODO Auto-generated method stub
+		editTextFirstName = (EditText) view.findViewById(R.id.et_FirstName);
+		editTextLastName = (EditText) view.findViewById(R.id.et_LastName);
+		editTextMobileNumber = (EditText) view.findViewById(R.id.et_Phone);
+		buttonSubmit = (Button) view.findViewById(R.id.btn_Submit);
+		buttonCancel = (Button) view.findViewById(R.id.btn_Cancel);
+	}
+
+	@Override
+	public void initListeners() {
+		// TODO Auto-generated method stub
+		buttonSubmit.setOnClickListener(this);
+		buttonCancel.setOnClickListener(this);
+
+	}
+
+	@Override
+	public void initMembers() {
+		// TODO Auto-generated method stub
+		mActivity = getActivity();
+		mApp = (BiggDiscountsApplication) mActivity.getApplicationContext();
+		prefHelper = new PrefHelper(mActivity);
+
+	}
+
+	@Override
+	public void initData() {
+		// TODO Auto-generated method stub
+		city = prefHelper.getCityFromPrefernce();
+
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		switch (v.getId()) {
+		case R.id.btn_Submit:
+			firstName = editTextFirstName.getText().toString();
+			lastName = editTextLastName.getText().toString();
+			number = editTextMobileNumber.getText().toString();
+			if (!TextUtils.isEmpty(firstName) && !TextUtils.isEmpty(lastName)
+					&& !TextUtils.isEmpty(number)) {
+				if (Utils.hasDataConnection(mActivity)) {
+					RegisterAsyncTask registerAsyncTask = new RegisterAsyncTask();
+					registerAsyncTask.execute();
+				} else {
+					Utils.ShowToast(mActivity,
+							getResources().getString(R.string.no_internert));
+				}
+			} else {
+				Utils.ShowToast(
+						mActivity,
+						getResources().getString(
+								R.string.pls_complete_all_fields));
+			}
+
+			break;
+		case R.id.btn_Cancel:
+			dismiss();
+			break;
+
+		default:
+			break;
+		}
+
+	}
+
+	private class RegisterAsyncTask extends AsyncTask<Void, Void, Boolean> {
+		private ProgressDialog pDialog;
+
+		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+			if (pDialog == null) {
+				pDialog = new ProgressDialog(getActivity());
+				pDialog.setMessage(getResources().getString(
+						R.string.attempting_reg));
+				pDialog.setIndeterminate(false);
+				pDialog.setCancelable(true);
+				pDialog.show();
+			}
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... params) {
+			// TODO Auto-generated method stub
+			try {
+				List<NameValuePair> param = new ArrayList<NameValuePair>();
+				param.add(new BasicNameValuePair("user[first_name]", firstName));
+				param.add(new BasicNameValuePair("user[last_name]", lastName));
+				param.add(new BasicNameValuePair("user[mobile_number]", number));
+				param.add(new BasicNameValuePair(
+						"address_attributes[city_name]", city));
+
+				boolean result = mApp.getWebService()
+						.isAlreadyRegistered(param);
+
+				return result;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			if (pDialog != null && pDialog.isShowing()) {
+				pDialog.dismiss();
+			}
+			if(!result){
+				Utils.ShowToast(mActivity, getResources().getString(R.string.no_registered));
+			}
+			prefHelper.setRegisterationPrefernce(result);
+			dismiss();
+
+		}
+
+	}
+}

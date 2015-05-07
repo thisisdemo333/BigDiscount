@@ -14,12 +14,18 @@
     <string name="hot_deals">Hot Deals</string>
     <string name="popular_deals">Popular Deals</string>
     <string name="rate">Rate it</string>
+    <string name="attempting_reg">Attempting Registration</string>
+    <string name="registeration_form">Registeration Form</string>
+
     <!-- Messages -->
     <string name="no_internert">Sorry No Internet!</string>
     <string name="could_not_connect_to_server">Oops Couldnot Connect To Server!</string>
     <string name="no_data">Sorry No Data!</string>
     <string name="succesfully_rated">Succesfully Rated</string>
     <string name="try_again">Try Again</string>
+    <string name="pls_complete_all_fields">Please Completer All Fields</string>
+    <string name="no_registered">OOps You Are Not Registered</string>
+    <string name="thanks_registeration">Thanks For Registeration</string>
 
     <!-- Keys -->
     <string name="key_ad_id">id</string>

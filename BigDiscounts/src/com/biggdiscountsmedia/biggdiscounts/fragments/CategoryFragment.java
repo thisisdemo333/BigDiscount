@@ -7,6 +7,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources.NotFoundException;
 import android.os.AsyncTask;
@@ -36,19 +37,24 @@ import com.biggdiscountsmedia.biggdiscounts.activities.AdvertiesDetailActivity;
 import com.biggdiscountsmedia.biggdiscounts.adapters.AdapterHotdealsHorizontalListview;
 import com.biggdiscountsmedia.biggdiscounts.adapters.AdapterPopularDeals;
 import com.biggdiscountsmedia.biggdiscounts.adapters.AdapterViewPager;
+import com.biggdiscountsmedia.biggdiscounts.dialoguefragment.DialogueRegister;
 import com.biggdiscountsmedia.biggdiscounts.dto.Images;
 import com.biggdiscountsmedia.biggdiscounts.dto.Premium;
 import com.biggdiscountsmedia.biggdiscounts.dto.ProductsResponse;
 import com.biggdiscountsmedia.biggdiscounts.dto.Regular;
+import com.biggdiscountsmedia.biggdiscounts.prefernces.PrefHelper;
 import com.biggdiscountsmedia.biggdiscounts.utils.Utils;
 import com.biggdiscountsmedia.biggdiscounts.views.BiggDiscountsGridView;
 import com.biggdiscountsmedia.biggdiscounts.views.HorizontalListView;
 
 public class CategoryFragment extends BaseFragment {
+
 	private Activity mActivity;
 	private BiggDiscountsApplication mApp;
+	private PrefHelper prefHelper;
 	private AdapterHotdealsHorizontalListview adapterHotdealsHorizontalListview;
 	private AdapterPopularDeals adapterPopularDeals;
+	private DialogueRegister dialogueRegister;
 	private AdapterViewPager adapterViewPager;
 	private ArrayList<Premium> arrayListPremiums;
 	private ArrayList<Regular> arrayListRegulars;
@@ -111,16 +117,23 @@ public class CategoryFragment extends BaseFragment {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int pos,
 					long arg3) {
 				// TODO Auto-generated method stub
+				if (prefHelper.isAlreadyRegistered()) {
 
-				int adId = arrayListPremiums.get(pos).getAdvertisement_image()
-						.getAdvertisement_id();
-				String id = String.valueOf(adId);
+					int adId = arrayListPremiums.get(pos)
+							.getAdvertisement_image().getAdvertisement_id();
+					String id = String.valueOf(adId);
 
-				Intent intent = new Intent(mActivity,
-						AdvertiesDetailActivity.class);
-				intent.putExtra(getResources().getString(R.string.key_ad_id),
-						id);
-				startActivity(intent);
+					Intent intent = new Intent(mActivity,
+							AdvertiesDetailActivity.class);
+					intent.putExtra(getResources()
+							.getString(R.string.key_ad_id), id);
+					startActivity(intent);
+				} else {
+
+					dialogueRegister = new DialogueRegister();
+					dialogueRegister.show(getFragmentManager(),
+							"Dailog Register");
+				}
 			}
 		});
 		gridView.setOnItemClickListener(new OnItemClickListener() {
@@ -128,16 +141,21 @@ public class CategoryFragment extends BaseFragment {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, int pos,
 					long arg3) {
+				if (prefHelper.isAlreadyRegistered()) {
+					int adId = arrayListRegulars.get(pos)
+							.getAdvertisement_image().getAdvertisement_id();
+					String id = String.valueOf(adId);
 
-				int adId = arrayListRegulars.get(pos).getAdvertisement_image()
-						.getAdvertisement_id();
-				String id = String.valueOf(adId);
-
-				Intent intent = new Intent(mActivity,
-						AdvertiesDetailActivity.class);
-				intent.putExtra(getResources().getString(R.string.key_ad_id),
-						id);
-				startActivity(intent);
+					Intent intent = new Intent(mActivity,
+							AdvertiesDetailActivity.class);
+					intent.putExtra(getResources()
+							.getString(R.string.key_ad_id), id);
+					startActivity(intent);
+				} else {
+					dialogueRegister = new DialogueRegister();
+					dialogueRegister.show(getFragmentManager(),
+							"Dailog Register");
+				}
 			}
 		});
 	}
@@ -147,6 +165,7 @@ public class CategoryFragment extends BaseFragment {
 		// TODO Auto-generated method stub
 		mActivity = getActivity();
 		mApp = (BiggDiscountsApplication) mActivity.getApplicationContext();
+		prefHelper = new PrefHelper(mActivity);
 		mHandler = new Handler();
 		// initializing visiblity
 		relativeLayoutProgress.setVisibility(View.VISIBLE);

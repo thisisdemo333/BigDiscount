@@ -17,6 +17,7 @@ import com.biggdiscountsmedia.biggdiscounts.dto.ProductDetail;
 import com.biggdiscountsmedia.biggdiscounts.dto.ProductsResponse;
 import com.biggdiscountsmedia.biggdiscounts.dto.RatingRequest;
 import com.biggdiscountsmedia.biggdiscounts.dto.RatingResponse;
+import com.biggdiscountsmedia.biggdiscounts.dto.Registeration;
 import com.biggdiscountsmedia.biggdiscounts.dto.SliderImagesResponse;
 import com.biggdiscountsmedia.biggdiscounts.httputils.HttpUtil;
 import com.google.gson.Gson;
@@ -85,11 +86,11 @@ public class WebService implements WebServiceInterface {
 	}
 
 	public ProductDetail getProductDetail(String productId) {
-		String URL = URLConstants.ADVERTIES_Detail_URL+productId+ ".json";
-		
+		String URL = URLConstants.ADVERTIES_Detail_URL + productId + ".json";
+
 		String result = httpUtil.doGet(URL);
 		ProductDetail response = null;
-		
+
 		try {
 			Type classType = new TypeToken<ProductDetail>() {
 			}.getType();
@@ -99,13 +100,13 @@ public class WebService implements WebServiceInterface {
 		}
 		return response;
 	}
-	
+
 	public RatingResponse postRating(RatingRequest ratingRequest) {
 		String URL = URLConstants.RATING_URL;
-		
-		String result = httpUtil.doPost(URL, ratingRequest);
+
+		String result = httpUtil.doPost(URL, null);
 		RatingResponse response = null;
-		
+
 		try {
 			Type classType = new TypeToken<RatingResponse>() {
 			}.getType();
@@ -114,6 +115,23 @@ public class WebService implements WebServiceInterface {
 			e.printStackTrace();
 		}
 		return response;
+	}
+
+	@Override
+	public boolean isAlreadyRegistered(List<NameValuePair> params) {
+		// TODO Auto-generated method stub
+		String URL = URLConstants.SIGN_UP;
+		String result = httpUtil.doPost(URL, params);
+		Registeration registeration = null;
+		try {
+			Type classType = new TypeToken<Registeration>() {
+			}.getType();
+			registeration = gson.fromJson(result, classType);
+			return registeration.isSuccess();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 }

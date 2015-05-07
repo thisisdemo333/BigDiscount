@@ -1,0 +1,54 @@
+package com.biggdiscountsmedia.biggdiscounts.dialoguefragment;
+
+i
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.biggdiscountsmedia.biggdiscounts.BaseDialogueFragment;
+import com.biggdiscountsmedia.biggdiscounts.R;
+
+public class DialogueRegister extends BaseDialogueFragment {
+	
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View view=inflater.inflate(R.layout., root)
+		return super.onCreateView(inflater, container, savedInstanceState);
+		
+	}
+
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void initViews() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void initListeners() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void initMembers() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void initData() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

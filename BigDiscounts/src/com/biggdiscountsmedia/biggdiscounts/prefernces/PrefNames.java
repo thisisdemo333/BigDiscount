@@ -7,4 +7,5 @@ public class PrefNames {
 	
 	//-----Key Name----//
 	public static final String 	KEY_CITY="city";
+	public static final String 	KEY_REGISTERED="registered";
 }

@@ -1,0 +1,320 @@
+package com.biggdiscountsmedia.biggdiscounts.fragments;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.content.res.Resources.NotFoundException;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.biggdiscountsmedia.biggdiscounts.BaseFragment;
+import com.biggdiscountsmedia.biggdiscounts.BiggDiscountsApplication;
+import com.biggdiscountsmedia.biggdiscounts.R;
+import com.biggdiscountsmedia.biggdiscounts.activities.AdvertiesDetailActivity;
+import com.biggdiscountsmedia.biggdiscounts.adapters.AdapterHotdealsHorizontalListview;
+import com.biggdiscountsmedia.biggdiscounts.adapters.AdapterPopularDeals;
+import com.biggdiscountsmedia.biggdiscounts.adapters.AdapterViewPager;
+import com.biggdiscountsmedia.biggdiscounts.dto.Images;
+import com.biggdiscountsmedia.biggdiscounts.dto.Premium;
+import com.biggdiscountsmedia.biggdiscounts.dto.ProductsResponse;
+import com.biggdiscountsmedia.biggdiscounts.dto.Regular;
+import com.biggdiscountsmedia.biggdiscounts.utils.Utils;
+import com.biggdiscountsmedia.biggdiscounts.views.BiggDiscountsGridView;
+import com.biggdiscountsmedia.biggdiscounts.views.HorizontalListView;
+
+public class CategoryFragment extends BaseFragment {
+	private Activity mActivity;
+	private BiggDiscountsApplication mApp;
+	private AdapterHotdealsHorizontalListview adapterHotdealsHorizontalListview;
+	private AdapterPopularDeals adapterPopularDeals;
+	private AdapterViewPager adapterViewPager;
+	private ArrayList<Premium> arrayListPremiums;
+	private ArrayList<Regular> arrayListRegulars;
+	private ArrayList<Images> arrayListSliderImages;
+	private Handler mHandler;
+	private int categoryId;
+	private int cityId;
+	private String categoryName;
+	private String cityName;
+	private ProgressBar progressBar;
+	private TextView textViewNetworkStatus;
+	private ViewPager viewPager;
+	private HorizontalListView horizontalListView;
+	private RelativeLayout relativeLayoutProgress;
+	private RelativeLayout relativeLayoutCategory;
+	private BiggDiscountsGridView gridView;
+	private int count = 0;
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View view = inflater.inflate(R.layout.fragment_category_layout, null);
+		init(view);
+		return view;
+	}
+
+	@Override
+	public void init(View view) {
+		// TODO Auto-generated method stub
+		initViews(view);
+		initListeners();
+		initMembers();
+		initData();
+	}
+
+	@Override
+	public void initViews(View view) {
+		// TODO Auto-generated method stub
+		relativeLayoutProgress = (RelativeLayout) view
+				.findViewById(R.id.rl_progress);
+		relativeLayoutCategory = (RelativeLayout) view
+				.findViewById(R.id.rl_category);
+		viewPager = (ViewPager) view.findViewById(R.id.view_pager);
+		horizontalListView = (HorizontalListView) view
+				.findViewById(R.id.lv_horizontal);
+		gridView = (BiggDiscountsGridView) view.findViewById(R.id.gridview);
+		progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
+		textViewNetworkStatus = (TextView) view
+				.findViewById(R.id.tv_network_status);
+
+	}
+
+	@Override
+	public void initListeners() {
+		// TODO Auto-generated method stub
+		horizontalListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int pos,
+					long arg3) {
+				// TODO Auto-generated method stub
+
+				int adId = arrayListPremiums.get(pos).getAdvertisement_image()
+						.getAdvertisement_id();
+				String id = String.valueOf(adId);
+
+				Intent intent = new Intent(mActivity,
+						AdvertiesDetailActivity.class);
+				intent.putExtra(getResources().getString(R.string.key_ad_id),
+						id);
+				startActivity(intent);
+			}
+		});
+		gridView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View v, int pos,
+					long arg3) {
+
+				int adId = arrayListRegulars.get(pos).getAdvertisement_image()
+						.getAdvertisement_id();
+				String id = String.valueOf(adId);
+
+				Intent intent = new Intent(mActivity,
+						AdvertiesDetailActivity.class);
+				intent.putExtra(getResources().getString(R.string.key_ad_id),
+						id);
+				startActivity(intent);
+			}
+		});
+	}
+
+	@Override
+	public void initMembers() {
+		// TODO Auto-generated method stub
+		mActivity = getActivity();
+		mApp = (BiggDiscountsApplication) mActivity.getApplicationContext();
+		mHandler = new Handler();
+		// initializing visiblity
+		relativeLayoutProgress.setVisibility(View.VISIBLE);
+		relativeLayoutCategory.setVisibility(View.GONE);
+		// initializing horizontal listview Adapter
+		adapterHotdealsHorizontalListview = new AdapterHotdealsHorizontalListview(
+				mActivity);
+		horizontalListView.setAdapter(adapterHotdealsHorizontalListview);
+		// intializing grid view adapter
+		adapterPopularDeals = new AdapterPopularDeals(mActivity);
+		gridView.setAdapter(adapterPopularDeals);
+
+	}
+
+	@Override
+	public void initData() {
+		// TODO Auto-generated method stub
+		Bundle bundle = getArguments();
+		categoryId = bundle.getInt(getResources().getString(
+				R.string.key_category_id));
+		categoryName = bundle.getString(getResources().getString(
+				R.string.key_category_name));
+		cityId = bundle.getInt(getResources().getString(R.string.key_city_id));
+		cityName = bundle.getString(getResources().getString(
+				R.string.key_city_name));
+
+		if (Utils.hasDataConnection(mActivity)) {
+			// Getting Slider Images
+			GetSliderImagesAsyncTask getSliderImagesAsyncTask = new GetSliderImagesAsyncTask();
+			getSliderImagesAsyncTask
+					.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+			// Getting product list
+			GettingProductListAsync gettingProductListAsync = new GettingProductListAsync();
+			gettingProductListAsync
+					.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		}
+	}
+
+	private class GettingProductListAsync extends
+			AsyncTask<Void, Void, ProductsResponse> {
+
+		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+
+		}
+
+		@Override
+		protected ProductsResponse doInBackground(Void... param) {
+			// TODO Auto-generated method stub
+			try {
+				List<NameValuePair> params = new ArrayList<NameValuePair>();
+				params.add(new BasicNameValuePair(getResources().getString(
+						R.string.key_city_name), cityName));
+				if (categoryId != 0) {
+					params.add(new BasicNameValuePair(getResources().getString(
+							R.string.key_category_id), String
+							.valueOf(categoryId)));
+				}
+				ProductsResponse productsResponse = mApp.getWebService()
+						.getProduct(params);
+				return productsResponse;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
+		}
+
+		@Override
+		protected void onPostExecute(ProductsResponse result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+
+			if (result != null) {
+				arrayListPremiums = (ArrayList<Premium>) result
+						.getListPremium();
+				arrayListRegulars = (ArrayList<Regular>) result
+						.getListRegular();
+				if (arrayListRegulars.size() == 0
+						|| arrayListPremiums.size() == 0) {
+					progressBar.setVisibility(View.GONE);
+					textViewNetworkStatus.setText(getResources().getString(
+							R.string.no_data));
+				} else {
+					relativeLayoutProgress.setVisibility(View.GONE);
+					// setting Animation
+					Animation animation = AnimationUtils.loadAnimation(
+							mActivity, R.anim.fadeout_anim);
+					relativeLayoutCategory.setVisibility(View.VISIBLE);
+					relativeLayoutCategory.setAnimation(animation);
+					// initializng adapter
+
+					adapterHotdealsHorizontalListview
+							.setArrayListPremiums(arrayListPremiums);
+					adapterHotdealsHorizontalListview.notifyDataSetChanged();
+
+					adapterPopularDeals
+							.setArrayListRegularDeals(arrayListRegulars);
+					adapterPopularDeals.notifyDataSetChanged();
+				}
+
+			}
+		}
+	}
+
+	private class GetSliderImagesAsyncTask extends
+			AsyncTask<Void, Void, ArrayList<Images>> {
+
+		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+		}
+
+		@Override
+		protected ArrayList<Images> doInBackground(Void... param) {
+			// TODO Auto-generated method stub
+			try {
+				List<NameValuePair> params = new ArrayList<NameValuePair>();
+				params.add(new BasicNameValuePair(getResources().getString(
+						R.string.key_city_name), cityName));
+				ArrayList<Images> arrayListImages = mApp.getWebService()
+						.getSliderImages(params);
+				return arrayListImages;
+			} catch (NotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
+		}
+
+		@Override
+		protected void onPostExecute(ArrayList<Images> result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			if (result != null) {
+				// initializing view pager adapter
+				arrayListSliderImages = result;
+				adapterViewPager = new AdapterViewPager(mActivity,
+						arrayListSliderImages);
+				viewPager.setAdapter(adapterViewPager);
+				SlidingImage();
+			}
+		}
+
+		private void SlidingImage() {
+			// TODO Auto-generated method stub
+
+			mHandler.post(new Runnable() {
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					if (arrayListSliderImages != null
+							&& arrayListSliderImages.size() > 0) {
+						if (count > arrayListSliderImages.size()) {
+							count = 0;
+						}
+						viewPager.setCurrentItem(count);
+						count = count + 1;
+						mHandler.postDelayed(this, 5000);
+					}
+				}
+			});
+
+		}
+
+	}
+
+}

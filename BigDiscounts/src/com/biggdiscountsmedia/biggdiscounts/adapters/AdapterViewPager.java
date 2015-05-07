@@ -8,8 +8,10 @@ import com.biggdiscountsmedia.biggdiscounts.BiggDiscountsApplication;
 import com.biggdiscountsmedia.biggdiscounts.R;
 import com.biggdiscountsmedia.biggdiscounts.activities.AdvertiesDetailActivity;
 import com.biggdiscountsmedia.biggdiscounts.constants.URLConstants;
+import com.biggdiscountsmedia.biggdiscounts.dialoguefragment.DialogueRegister;
 import com.biggdiscountsmedia.biggdiscounts.dto.Images;
 import com.biggdiscountsmedia.biggdiscounts.dto.Regular;
+import com.biggdiscountsmedia.biggdiscounts.prefernces.PrefHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -32,6 +34,8 @@ public class AdapterViewPager extends PagerAdapter {
 	private ProgressBar progressBar;
 	private BiggDiscountsApplication mApp;
 	private ImageLoader imageLoader;
+	private PrefHelper prefHelper;
+	private DialogueRegister dialogueRegister;
 
 	public AdapterViewPager(Activity mActivity,
 			ArrayList<Images> arrayListSliderImages) {
@@ -39,6 +43,7 @@ public class AdapterViewPager extends PagerAdapter {
 		this.mActivity = mActivity;
 		this.arrayListSliderImages = arrayListSliderImages;
 		this.imageLoader = mApp.getInstance().getImageLoader();
+		this.prefHelper = new PrefHelper(mActivity);
 	}
 
 	@Override
@@ -64,23 +69,30 @@ public class AdapterViewPager extends PagerAdapter {
 		View view = mLayoutInflater.inflate(R.layout.view_pager_layout,
 				container, false);
 		initViews(view);
+
 		networkImageViewSlider.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				// opening advertise activity
-				int adId = arrayListSliderImages.get(position)
-						.getAdvertisement_id();
+				if (prefHelper.isAlreadyRegistered()) {
+					int adId = arrayListSliderImages.get(position)
+							.getAdvertisement_id();
 
-				String id = String.valueOf(adId);
+					String id = String.valueOf(adId);
 
-				Intent intent = new Intent(mActivity,
-						AdvertiesDetailActivity.class);
-				intent.putExtra(
-						mActivity.getResources().getString(R.string.key_ad_id),
-						id);
-				mActivity.startActivity(intent);
+					Intent intent = new Intent(mActivity,
+							AdvertiesDetailActivity.class);
+					intent.putExtra(
+							mActivity.getResources().getString(
+									R.string.key_ad_id), id);
+					mActivity.startActivity(intent);
+				} else {
+					dialogueRegister = new DialogueRegister();
+					dialogueRegister.show(mActivity.getFragmentManager(),
+							"Dailog Register");
+				}
 			}
 		});
 

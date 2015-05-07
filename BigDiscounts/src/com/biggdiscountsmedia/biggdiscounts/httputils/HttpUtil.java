@@ -5,9 +5,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
+
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -16,8 +22,10 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.text.TextUtils;
 import android.util.Log;
+
 import com.google.gson.Gson;
 
 public class HttpUtil {
@@ -84,35 +92,28 @@ public class HttpUtil {
 	 * @param post
 	 * @return
 	 */
-	public String doPost(String url, Object post) {
+	public String doPost(String url, List<NameValuePair> post) {
 
-		BasicHttpParams httpParameters = new BasicHttpParams();
-		HttpConnectionParams.setConnectionTimeout(httpParameters, 60000);
-		HttpConnectionParams.setSoTimeout(httpParameters, 60000);
-
-		// create HttpClient
-		HttpClient httpClient = new DefaultHttpClient(httpParameters);
 		InputStream inputStream = null;
-
-		HttpPost httpPost = new HttpPost(url);
-		httpPost.setHeader("Accept", "application/json");
-		httpPost.setHeader("Content-type", "application/json");
-
-		String postStr;
 		try {
-			if (post != null) {
-				postStr = new Gson().toJson(post);
-				StringEntity stringEntity = new StringEntity(postStr);
-				httpPost.setEntity(stringEntity);
-			}
+			DefaultHttpClient httpClient = new DefaultHttpClient();
+			HttpPost httpPost = new HttpPost(url);
+			httpPost.setEntity(new UrlEncodedFormEntity(post));
 			HttpResponse httpResponse = httpClient.execute(httpPost);
+			HttpEntity httpEntity = httpResponse.getEntity();
+			inputStream = httpEntity.getContent();
 
-			// receive response as inputStream
-			inputStream = httpResponse.getEntity().getContent();
 		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -125,7 +126,6 @@ public class HttpUtil {
 				e.printStackTrace();
 			}
 		}
-
 		return null;
 	}
 

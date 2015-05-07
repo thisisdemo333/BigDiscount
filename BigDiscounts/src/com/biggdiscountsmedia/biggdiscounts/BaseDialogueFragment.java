@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 public abstract class BaseDialogueFragment extends DialogFragment {
 	
 	// -----Abstract listeners--------
-	public abstract void init();
+	public abstract void init(View view);
 
-	public abstract void initViews();
+	public abstract void initViews(View view);
 
 	public abstract void initListeners();
 
