@@ -50,6 +50,9 @@
     <dimen name="dimen_view_pager">165dp</dimen>
     <dimen name="dimen_hot_deals_image">165dp</dimen>
     <dimen name="dimen_product_image">165dp</dimen>
+    
+    <!-- Search Item Image dimen -->
+    <dimen name="dimen_search_item_image">100dp</dimen>
 
     <!-- Advertise Screen Dimen -->
     <dimen name="dimen_advetise_viewpager">200dp</dimen>

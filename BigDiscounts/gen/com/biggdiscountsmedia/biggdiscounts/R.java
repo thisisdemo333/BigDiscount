@@ -554,16 +554,16 @@ containing a value of this type.
          */
         public static final int activity_horizontal_margin=0x7f0a0000;
         public static final int activity_vertical_margin=0x7f0a0001;
-        public static final int dimen_advertise_call_image=0x7f0a0031;
-        public static final int dimen_advertise_horizontal_listview=0x7f0a0030;
-        public static final int dimen_advertise_pager_addres=0x7f0a0033;
-        public static final int dimen_advertise_sms_image=0x7f0a0032;
+        public static final int dimen_advertise_call_image=0x7f0a0032;
+        public static final int dimen_advertise_horizontal_listview=0x7f0a0031;
+        public static final int dimen_advertise_pager_addres=0x7f0a0034;
+        public static final int dimen_advertise_sms_image=0x7f0a0033;
         /**  Advertise Screen Dimen 
  Advertise Screen Dimen 
  Advertise Screen Dimen 
  Advertise Screen Dimen 
          */
-        public static final int dimen_advetise_viewpager=0x7f0a002f;
+        public static final int dimen_advetise_viewpager=0x7f0a0030;
         public static final int dimen_hot_deals_image=0x7f0a002d;
         /**  Category Fragment dimen 
  Category Fragment dimen 
@@ -572,6 +572,12 @@ containing a value of this type.
          */
         public static final int dimen_hotdeals_listview=0x7f0a002b;
         public static final int dimen_product_image=0x7f0a002e;
+        /**  Search Item Image dimen 
+ Search Item Image dimen 
+ Search Item Image dimen 
+ Search Item Image dimen 
+         */
+        public static final int dimen_search_item_image=0x7f0a002f;
         public static final int dimen_view_pager=0x7f0a002c;
         /**  Imageview Category Dimen 
  Imageview Category Dimen 
@@ -580,7 +586,7 @@ containing a value of this type.
          */
         public static final int imv_category_dimen=0x7f0a002a;
         public static final int large_text_size=0x7f0a000b;
-        public static final int margin25dp=0x7f0a0034;
+        public static final int margin25dp=0x7f0a0035;
         public static final int margin_10dp=0x7f0a0025;
         public static final int margin_15dp=0x7f0a0026;
         /**  Margin 
@@ -683,97 +689,96 @@ containing a value of this type.
     public static final class id {
         public static final int GoogleMap=0x7f080027;
         public static final int Map=0x7f080028;
-        public static final int action_settings=0x7f08005a;
+        public static final int action_settings=0x7f080059;
         public static final int book_now=0x7f080010;
-        public static final int btn_Cancel=0x7f080039;
-        public static final int btn_Ratingbar_Cancel=0x7f08004b;
-        public static final int btn_Ratingbar_Submit=0x7f08004a;
-        public static final int btn_Submit=0x7f080038;
+        public static final int btn_Cancel=0x7f080038;
+        public static final int btn_Ratingbar_Cancel=0x7f08004a;
+        public static final int btn_Ratingbar_Submit=0x7f080049;
+        public static final int btn_Submit=0x7f080037;
         public static final int btn_detail_RateIt=0x7f08001d;
-        public static final int button_next=0x7f080031;
+        public static final int button_next=0x7f080030;
         public static final int buyButton=0x7f08000a;
         public static final int buy_now=0x7f08000f;
         public static final int buy_with_google=0x7f08000e;
         public static final int classic=0x7f080011;
         public static final int drawer_layout=0x7f080029;
-        public static final int et_FirstName=0x7f080034;
-        public static final int et_LastName=0x7f080035;
-        public static final int et_Phone=0x7f080036;
+        public static final int et_FirstName=0x7f080033;
+        public static final int et_LastName=0x7f080034;
+        public static final int et_Phone=0x7f080035;
         public static final int frame_container=0x7f08002a;
         public static final int grayscale=0x7f080012;
-        public static final int gridview=0x7f080040;
+        public static final int gridview=0x7f08003f;
         public static final int hlv_Detail_ProductImageList=0x7f08001a;
         public static final int holo_dark=0x7f080005;
         public static final int holo_light=0x7f080006;
-        public static final int home_menu_search=0x7f08005b;
+        public static final int home_menu_search=0x7f08005a;
         public static final int hybrid=0x7f080004;
-        public static final int image_loader=0x7f080051;
-        public static final int imv_category=0x7f08004e;
-        public static final int imv_hotdeals=0x7f08004d;
-        public static final int imv_location=0x7f080058;
-        public static final int imv_product=0x7f08004c;
-        public static final int imv_slider=0x7f080057;
+        public static final int image_loader=0x7f080050;
+        public static final int imv_category=0x7f08004d;
+        public static final int imv_hotdeals=0x7f08004c;
+        public static final int imv_location=0x7f080057;
+        public static final int imv_product=0x7f08004b;
+        public static final int imv_slider=0x7f080056;
         public static final int iv_Detail_Call=0x7f080024;
         public static final int iv_Detail_ProductImage=0x7f080018;
         public static final int iv_Detail_Sms=0x7f080025;
-        public static final int iv_image=0x7f080033;
-        public static final int iv_premium_list_image=0x7f080042;
-        public static final int iv_product_image=0x7f080052;
+        public static final int iv_image=0x7f080032;
+        public static final int iv_premium_list_image=0x7f080041;
+        public static final int iv_product_image=0x7f080051;
         public static final int listview_slide_left=0x7f08002b;
         public static final int listview_slide_right=0x7f08002c;
         public static final int ll_advertise=0x7f080017;
-        public static final int ll_city=0x7f08002f;
+        public static final int ll_city=0x7f08002e;
         public static final int llrating_detail=0x7f08001b;
-        public static final int lv_horizontal=0x7f08003e;
+        public static final int lv_horizontal=0x7f08003d;
         public static final int lv_search_item=0x7f08002d;
         public static final int match_parent=0x7f08000c;
-        public static final int menu_search=0x7f08005d;
+        public static final int menu_search=0x7f08005c;
         public static final int monochrome=0x7f080013;
         public static final int none=0x7f080000;
         public static final int normal=0x7f080001;
         public static final int pager_Address=0x7f080026;
         public static final int production=0x7f080007;
-        public static final int progressBar=0x7f080047;
+        public static final int progressBar=0x7f080046;
         public static final int progressbar=0x7f080015;
-        public static final int ratingBar=0x7f080048;
+        public static final int ratingBar=0x7f080047;
         public static final int rating_message=0x7f08001c;
         public static final int rb_Detail_RatingBar=0x7f08001e;
-        public static final int relativeLayout=0x7f080050;
-        public static final int right_slider_menu=0x7f08005c;
-        public static final int rlMembersAddress=0x7f080037;
-        public static final int rl_category=0x7f08003b;
-        public static final int rl_hotdeals=0x7f08003d;
-        public static final int rl_popular_deals=0x7f08003f;
+        public static final int relativeLayout=0x7f08004f;
+        public static final int right_slider_menu=0x7f08005b;
+        public static final int rlMembersAddress=0x7f080036;
+        public static final int rl_category=0x7f08003a;
+        public static final int rl_hotdeals=0x7f08003c;
+        public static final int rl_popular_deals=0x7f08003e;
         public static final int rl_progress=0x7f080014;
-        public static final int rl_top=0x7f080041;
+        public static final int rl_top=0x7f080040;
         public static final int sandbox=0x7f080008;
         public static final int satellite=0x7f080002;
-        public static final int scrollView=0x7f08003a;
+        public static final int scrollView=0x7f080039;
         public static final int selectionDetails=0x7f08000b;
-        public static final int spineer_city=0x7f080030;
+        public static final int spineer_city=0x7f08002f;
         public static final int strict_sandbox=0x7f080009;
         public static final int terrain=0x7f080003;
-        public static final int tv_Detail_Address=0x7f080032;
+        public static final int tv_Detail_Address=0x7f080031;
         public static final int tv_Detail_Mrp=0x7f080023;
         public static final int tv_Detail_ProductDiscription=0x7f080020;
         public static final int tv_Detail_RatingValue=0x7f08001f;
         public static final int tv_Detail_SellingPrize=0x7f080021;
         public static final int tv_Detail_offer=0x7f080022;
         public static final int tv_Detail_views=0x7f080019;
-        public static final int tv_Ratingbar_Value=0x7f080049;
-        public static final int tv_category_name=0x7f08004f;
-        public static final int tv_city_name=0x7f080059;
+        public static final int tv_Ratingbar_Value=0x7f080048;
+        public static final int tv_category_name=0x7f08004e;
+        public static final int tv_city_name=0x7f080058;
         public static final int tv_network_status=0x7f080016;
-        public static final int tv_no_data=0x7f08002e;
-        public static final int tv_premium_Mrp=0x7f080045;
-        public static final int tv_premium_ProductName=0x7f080043;
-        public static final int tv_premium_SellingPrize=0x7f080044;
-        public static final int tv_premium_off=0x7f080046;
-        public static final int tv_product_mrp=0x7f080055;
-        public static final int tv_product_name=0x7f080053;
-        public static final int tv_product_offer=0x7f080056;
-        public static final int tv_product_selling_prise=0x7f080054;
-        public static final int view_pager=0x7f08003c;
+        public static final int tv_premium_Mrp=0x7f080044;
+        public static final int tv_premium_ProductName=0x7f080042;
+        public static final int tv_premium_SellingPrize=0x7f080043;
+        public static final int tv_premium_off=0x7f080045;
+        public static final int tv_product_mrp=0x7f080054;
+        public static final int tv_product_name=0x7f080052;
+        public static final int tv_product_offer=0x7f080055;
+        public static final int tv_product_selling_prise=0x7f080053;
+        public static final int view_pager=0x7f08003b;
         public static final int wrap_content=0x7f08000d;
     }
     public static final class integer {

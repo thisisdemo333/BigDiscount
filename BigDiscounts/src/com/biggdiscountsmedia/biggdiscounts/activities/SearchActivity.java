@@ -14,9 +14,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
@@ -27,6 +31,7 @@ import com.biggdiscountsmedia.biggdiscounts.R;
 import com.biggdiscountsmedia.biggdiscounts.adapters.AdapterSearchList;
 import com.biggdiscountsmedia.biggdiscounts.dto.Regular;
 import com.biggdiscountsmedia.biggdiscounts.dto.SearchQuery;
+import com.google.android.gms.internal.lb;
 
 public class SearchActivity extends BaseActivity implements
 		OnQueryTextListener, OnItemClickListener {
@@ -35,8 +40,6 @@ public class SearchActivity extends BaseActivity implements
 
 	private ListView lvSearchList;
 
-	private TextView tvNoData;
-	
 	private AdapterSearchList adapterSearchList;
 
 	private ArrayList<Regular> arrayListSearchList = new ArrayList<Regular>();
@@ -44,6 +47,12 @@ public class SearchActivity extends BaseActivity implements
 	private BiggDiscountsApplication mApp;
 
 	private SearchActivity mActivity;
+
+	// progress view
+
+	private RelativeLayout relativeLayoutProgress;
+	private TextView textViewNetworkStatus;
+	private ProgressBar progressBar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +90,9 @@ public class SearchActivity extends BaseActivity implements
 	@Override
 	public void initViews() {
 		lvSearchList = (ListView) findViewById(R.id.lv_search_item);
-		tvNoData = (TextView) findViewById(R.id.tv_no_data);
+		relativeLayoutProgress = (RelativeLayout) findViewById(R.id.rl_progress);
+		progressBar = (ProgressBar) findViewById(R.id.progressbar);
+		textViewNetworkStatus = (TextView) findViewById(R.id.tv_network_status);
 	}
 
 	@Override
@@ -109,7 +120,7 @@ public class SearchActivity extends BaseActivity implements
 	@Override
 	public boolean onQueryTextSubmit(String query) {
 		doSearch(query);
-		return false;
+		return true;
 	}
 
 	@Override
@@ -134,65 +145,58 @@ public class SearchActivity extends BaseActivity implements
 
 	private class GetSearchedProductList extends AsyncTask<String, Void, Void> {
 
-		int success = 0;
-		ProgressDialog pDialog;
-
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
 
-			pDialog = new ProgressDialog(SearchActivity.this);
-			pDialog.setMessage("Loading Items");
-			pDialog.setIndeterminate(false);
-			pDialog.setCancelable(false);
-			pDialog.show();
+			relativeLayoutProgress.setVisibility(View.VISIBLE);
+			progressBar.setVisibility(View.VISIBLE);
+			textViewNetworkStatus.setVisibility(View.VISIBLE);
+
+			lvSearchList.setVisibility(View.GONE);
 		}
+
 		@Override
 		protected Void doInBackground(String... args) {
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("search_term", args[0]));
 
 			try {
-				arrayListSearchList.clear();
 				arrayListSearchList = mApp.getWebService()
 						.getSearchedProductList(params);
-
+				return null;
 			} catch (Exception e) {
 				e.printStackTrace();
+				return null;
 			}
-
-			return null;
 
 		}
 
 		@Override
 		protected void onPostExecute(Void result) {
-
-			pDialog.dismiss();
+			super.onPostExecute(result);
 			
-			if (arrayListSearchList.size() > 0) {
+			if (arrayListSearchList.size() == 0) {
+				progressBar.setVisibility(View.GONE);
+				textViewNetworkStatus.setText(getResources().getString(
+						R.string.no_data));
+			} else {
+				relativeLayoutProgress.setVisibility(View.GONE);
+				// setting Animation
+//				Animation animation = AnimationUtils.loadAnimation(mActivity,
+//						R.anim.fadeout_anim);
+				lvSearchList.setVisibility(View.VISIBLE);
+//				lvSearchList.setAnimation(animation);
+				// initializng adapter
 				adapterSearchList.setArrayListSearchList(arrayListSearchList);
 				adapterSearchList.notifyDataSetChanged();
-				setVisibility(true);
-			} else {
-				setVisibility(false);
 			}
+
 		}
 	}
 
 	private void doSearch(String query) {
 		new GetSearchedProductList().execute(query);
-	}
-
-	public void setVisibility(boolean b) {
-		if (b == true) {
-			lvSearchList.setVisibility(View.VISIBLE);
-			tvNoData.setVisibility(View.GONE);
-		}else{
-
-			lvSearchList.setVisibility(View.GONE);
-			tvNoData.setVisibility(View.VISIBLE);
-		}
 	}
 
 }
