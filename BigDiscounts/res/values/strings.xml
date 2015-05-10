@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!-- Names -->
@@ -34,5 +35,8 @@
     <string name="key_category_id">category_id</string>
     <string name="key_category_name">category_name</string>
     <string name="google_maps_key">AIzaSyCNQVl9YItpXPx-0yTiBHbP4H7u94ShpuM</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

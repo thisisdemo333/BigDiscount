@@ -12,6 +12,8 @@ import com.biggdiscountsmedia.biggdiscounts.dto.ProductDetail;
 import com.biggdiscountsmedia.biggdiscounts.dto.ProductsResponse;
 import com.biggdiscountsmedia.biggdiscounts.dto.RatingRequest;
 import com.biggdiscountsmedia.biggdiscounts.dto.RatingResponse;
+import com.biggdiscountsmedia.biggdiscounts.dto.Regular;
+import com.biggdiscountsmedia.biggdiscounts.dto.SearchQuery;
 
 public interface WebServiceInterface {
 
@@ -28,4 +30,6 @@ public interface WebServiceInterface {
 	public RatingResponse postRating(RatingRequest ratingRequest);
 	
 	public boolean isAlreadyRegistered(List<NameValuePair> params);
+	
+	public ArrayList<Regular> getSearchedProductList(List<NameValuePair> searchQuery);
 }

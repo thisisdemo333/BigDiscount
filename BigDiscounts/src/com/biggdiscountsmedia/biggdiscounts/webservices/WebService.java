@@ -18,6 +18,9 @@ import com.biggdiscountsmedia.biggdiscounts.dto.ProductsResponse;
 import com.biggdiscountsmedia.biggdiscounts.dto.RatingRequest;
 import com.biggdiscountsmedia.biggdiscounts.dto.RatingResponse;
 import com.biggdiscountsmedia.biggdiscounts.dto.Registeration;
+import com.biggdiscountsmedia.biggdiscounts.dto.Regular;
+import com.biggdiscountsmedia.biggdiscounts.dto.SearchQuery;
+import com.biggdiscountsmedia.biggdiscounts.dto.SearchResponse;
 import com.biggdiscountsmedia.biggdiscounts.dto.SliderImagesResponse;
 import com.biggdiscountsmedia.biggdiscounts.httputils.HttpUtil;
 import com.google.gson.Gson;
@@ -132,6 +135,27 @@ public class WebService implements WebServiceInterface {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	@Override
+	public ArrayList<Regular> getSearchedProductList(List<NameValuePair> param) {
+		String URL = URLConstants.SEARCH_URL;
+
+		String result = httpUtil.doPost(URL, param);
+		
+		ArrayList<Regular> response = null;
+		SearchResponse searchResponse;
+		
+		try {
+			Type classType = new TypeToken<SearchResponse>() {
+			}.getType();
+			searchResponse = gson.fromJson(result, classType);
+			response = searchResponse.getAdvertisements();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return response;
+
 	}
 
 }

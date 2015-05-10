@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.biggdiscountsmedia.biggdiscounts"
     android:versionCode="1"
@@ -24,13 +25,15 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
 
     <application
-        android:name="com.biggdiscountsmedia.biggdiscounts.BiggDiscountsApplication"
+        android:name=".BiggDiscountsApplication"
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.biggdiscountsmedia.biggdiscounts.activities.SplashActivity"
+            android:name=".activities.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
             <intent-filter>
@@ -40,18 +43,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.biggdiscountsmedia.biggdiscounts.activities.SelectCityActivity"
+            android:name=".activities.SelectCityActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.biggdiscountsmedia.biggdiscounts.activities.HomeActivity"
+            android:name=".activities.HomeActivity"
             android:configChanges="keyboard|screenSize|orientation"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.biggdiscountsmedia.biggdiscounts.activities.AdvertiesDetailActivity"
+            android:name=".activities.AdvertiesDetailActivity"
             android:configChanges="keyboard|screenSize|orientation"
             android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activities.SearchActivity"
+            android:label="@string/title_activity_search"
             android:screenOrientation="portrait" >
         </activity>
         <!-- Google MAP API key -->

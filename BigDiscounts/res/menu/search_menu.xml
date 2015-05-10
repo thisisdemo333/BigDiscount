@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.biggdiscountsmedia.biggdiscounts.SearchActivity" >
+
+    <item
+        android:id="@+id/menu_search"
+        android:actionViewClass="android.widget.SearchView"
+        android:icon="@android:drawable/ic_menu_search"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title=""/>
+
+</menu>

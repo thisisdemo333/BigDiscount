@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -294,7 +295,10 @@ public class HomeActivity extends BaseActivity {
 				mDrawerLayout.openDrawer(lvDraweRightSide);
 			}
 			return true;
-
+		case R.id.home_menu_search:
+			Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
+			startActivity(intent);
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 
@@ -329,7 +333,7 @@ public class HomeActivity extends BaseActivity {
 
 	/**
 	 * Categories Async Task
-	 *
+	 * 
 	 */
 	private class GetCategoriesAsyncTask extends
 			AsyncTask<Void, Void, ArrayList<Categories>> {
