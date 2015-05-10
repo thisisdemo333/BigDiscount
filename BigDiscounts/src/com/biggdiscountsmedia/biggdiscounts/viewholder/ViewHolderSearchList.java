@@ -10,6 +10,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.biggdiscountsmedia.biggdiscounts.BaseViewHolder;
 import com.biggdiscountsmedia.biggdiscounts.BiggDiscountsApplication;
 import com.biggdiscountsmedia.biggdiscounts.R;
+import com.biggdiscountsmedia.biggdiscounts.constants.URLConstants;
 import com.biggdiscountsmedia.biggdiscounts.dto.Regular;
 
 public class ViewHolderSearchList extends BaseViewHolder {
@@ -24,7 +25,7 @@ public class ViewHolderSearchList extends BaseViewHolder {
 	private Regular regular;
 
 	private ImageLoader imageLoader;
-	
+
 	public ViewHolderSearchList(Activity mActivity) {
 		super(mActivity);
 		imageLoader = BiggDiscountsApplication.getInstance().getImageLoader();
@@ -33,6 +34,11 @@ public class ViewHolderSearchList extends BaseViewHolder {
 	@Override
 	public void setData(Object data) {
 		regular = (Regular) data;
+
+	}
+
+	@Override
+	public void applyData() {
 
 		String productName = String.valueOf(regular.getProduct_name());
 		String sellingPrise = String.valueOf(regular.getSelling_price());
@@ -48,14 +54,9 @@ public class ViewHolderSearchList extends BaseViewHolder {
 		tvSellingPrise.setText(sellingPrise);
 
 		if (!TextUtils.isEmpty(productImageUrl)) {
-			ivProductImage.setImageUrl(productImageUrl, imageLoader);
+			ivProductImage.setImageUrl(URLConstants.IMAGE_BASE_URL+"/"+productImageUrl, imageLoader);
 
 		}
-
-	}
-
-	@Override
-	public void applyData() {
 
 	}
 

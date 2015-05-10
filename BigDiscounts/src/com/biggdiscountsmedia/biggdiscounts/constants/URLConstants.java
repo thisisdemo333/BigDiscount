@@ -2,10 +2,10 @@ package com.biggdiscountsmedia.biggdiscounts.constants;
 
 public class URLConstants {
 
-	public static String BASE_URL = "http://216.157.85.174:3000/";
-	public static String IMAGE_BASE_URL = "http://216.157.85.174:3000";
-	// public static String BASE_URL = "http://216.157.85.174/";
-	// public static String IMAGE_BASE_URL = "http://216.157.85.174";
+//	public static String BASE_URL = "http://216.157.85.174:3000/";
+//	public static String IMAGE_BASE_URL = "http://216.157.85.174:3000";
+	 public static String BASE_URL = "http://216.157.85.174/";
+	 public static String IMAGE_BASE_URL = "http://216.157.85.174";
 
 	public static String SIGN_UP = BASE_URL + "sign_up.json";
 	public static String CITY_LIST_URL = BASE_URL + "cities.json";

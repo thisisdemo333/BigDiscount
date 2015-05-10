@@ -94,7 +94,7 @@ public class SearchActivity extends BaseActivity implements
 		mActivity = this;
 		mApp = (BiggDiscountsApplication) getApplication();
 
-		adapterSearchList = new AdapterSearchList(this);
+		adapterSearchList = new AdapterSearchList(mActivity);
 		adapterSearchList.setArrayListSearchList(arrayListSearchList);
 
 		lvSearchList.setAdapter(adapterSearchList);
@@ -153,6 +153,7 @@ public class SearchActivity extends BaseActivity implements
 			params.add(new BasicNameValuePair("search_term", args[0]));
 
 			try {
+				arrayListSearchList.clear();
 				arrayListSearchList = mApp.getWebService()
 						.getSearchedProductList(params);
 
@@ -170,6 +171,7 @@ public class SearchActivity extends BaseActivity implements
 			pDialog.dismiss();
 			
 			if (arrayListSearchList.size() > 0) {
+				adapterSearchList.setArrayListSearchList(arrayListSearchList);
 				adapterSearchList.notifyDataSetChanged();
 				setVisibility(true);
 			} else {
